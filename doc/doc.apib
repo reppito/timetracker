@@ -1,0 +1,526 @@
+FORMAT: 1A
+
+# TimeTracker
+
+This is a Api which allow track the time spend in different tasks/projects
+
+# Group test2
+
+## Create User [/user/create]
+
+### create [POST]
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
+    + Body
+
+            {
+                "Email": "example@example.com",
+                "name": "exampleName",
+                "lastname": "ExampleLastname",
+                "password": "examplepassword" 
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "lastname": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "password"
+                    }
+                    }
+            }
+
++ Response 200 (application/json)
+
+            {
+                "message": "stored",
+                "id": "user id created"
+            }
+
+## Get user [/user/getuser/{email}]
+
+### get user [GET]
+
++ Parameters
+    + email: `example@example` (string) - The email of the user.
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
++ Response 200 (application/json)
+
+            {
+            "user": "id_example",
+            "email": "test@test.com",
+            "name": "Test User",
+            "lastname": "test"
+            }
+
+#Group Task
+
+## Create Task [/task/create]
+
+### create [POST]
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
+    + Body
+
+            {
+                "projectid": 23e23cdcsdc323(optional),
+                "name": "exampleTask(optional)",
+                "time": "00:30:00(optional)",
+                "description": "description name(optional)",
+                "user": 2d23d23d3dscdc(optional)
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "name": {
+                    "projectid": {
+                        "type": "objectid"
+                    },
+                    "userid": {
+                        "type": "objectid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "time": {
+                        "type": "String"
+                    }
+                    "description": {
+                        "type": "String"
+                    }
+                    }
+                }
+
++ Response 200 (application/json)
+
+            {
+                "message": "stored",
+                "id": "task id created"
+            }
+
+
+## delete task [/task/delete]
+
+### delete [DELETE]
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
+    + Body
+
+            {
+                "taskid": 23e23cdcsdc323(required),
+                "userid": 2d23d23d3dscdc(required)
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "name": {
+                    "taskid": {
+                        "type": "objectid"
+                    },
+                    "userid": {
+                        "type": "objectid"
+                    }
+                    }
+                
+            }
+
++ Response 200 (application/json)
+
+            {
+                "message": "succesfully"
+            }
+## play task [/task/play]
+
+### play [POST]
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
+    + Body
+
+            {
+                "taskid": 23e23cdcsdc323(required),
+                "userid": 2d23d23d3dscdc(required),
+                "timestamp": 122323432423(required)
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "name": {
+                    "taskid": {
+                        "type": "objectid"
+                    },
+                    "userid": {
+                        "type": "objectid"
+                    },
+                    "timestamp": {
+                        "type": "timestampUTC"
+                    }
+                    }
+                
+            }
+
++ Response 200 (application/json)
+
+            {
+                "message": "timer started"
+            }
+## pause task [/task/pause]
+
+### pause [POST]
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
+    + Body
+
+            {
+                "taskid": 23e23cdcsdc323(required),
+                "userid": 2d23d23d3dscdc(required),
+                "timestamp": 122323432423(required)
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "name": {
+                    "taskid": {
+                        "type": "objectid"
+                    },
+                    "userid": {
+                        "type": "objectid"
+                    },
+                    "timestamp": {
+                        "type": "timestampUTC"
+                    }
+                    }
+                
+            }
+
++ Response 200 (application/json)
+
+            {
+                "message": "timer paused"
+            }
+
+## restart task [/task/restart]
+
+### pause [POST]
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
+    + Body
+
+            {
+                "taskid": 23e23cdcsdc323(required),
+                "userid": 2d23d23d3dscdc(required)
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "name": {
+                    "taskid": {
+                        "type": "objectid"
+                    },
+                    "userid": {
+                        "type": "objectid"
+                    }
+                    }
+                
+            }
+
++ Response 200 (application/json)
+
+            {
+                "message": "timer restarted"
+            }
+
+
+## Get user [/task/gettasks/{userid}]
+
+### get user [GET]
+
++ Parameters
+    + userid: `232esdsd2323dsd` (objectid) - The email of the user.
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
++ Response 200 (application/json)
+
+
+            [
+            {
+                "paused": true,
+                "_id": "5e41dcf76b854132588ef76c",
+                "name": "test task44",
+                "timeTracked": 0,
+                "user": "5e3f86342353eb3a24f733a3",
+                "createdAt": "2020-02-10T22:45:11.689Z",
+                "updatedAt": "2020-02-10T22:48:11.483Z",
+                "__v": 0,
+                "playDate": null
+            }
+            ]
+
+## add task to project [/task/addtoproject]
+
+### add task to project [POST]
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
+    + Body
+
+            {
+                "taskid": 23e23cdcsdc323(required),
+                "userid": 2d23d23d3dscdc(required),
+                "projectid": 122323432423(required)
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "name": {
+                    "taskid": {
+                        "type": "objectid"
+                    },
+                    "userid": {
+                        "type": "objectid"
+                    },
+                    "projectid": {
+                        "type": "objectid"
+                    
+                    }
+                    }
+                
+            }
+
++ Response 200 (application/json)
+
+            {
+                "message": "task updated"
+            }
+
+## delete task from project [/task/deleteproject]
+
+### delete task from project [POST]
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
+    + Body
+
+            {
+                "taskid": 23e23cdcsdc323(required),
+                "userid": 2d23d23d3dscdc(required)
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "name": {
+                    "taskid": {
+                        "type": "objectid"
+                    },
+                    "userid": {
+                        "type": "objectid"
+                    }
+                } 
+                
+            }
+
++ Response 200 (application/json)
+
+            {
+                "message": "task updated"
+            }
+#Group project
+
+
+## create  [/project/create]
+
+### create Project [POST]
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
+    + Body
+
+            {
+                "name": "project name"
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "name": {
+                    "name": {
+                        "type": "string"
+                    }
+                } 
+                
+            }
+
++ Response 200 (application/json)
+
+            {
+                "message": "stored",
+                "id": "id project created"
+            }
+
+
+## list of projects [/project/listProjects]
+
+### list of projects [GET]
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
+    + Body
+
+            {
+                
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "name": {
+                    "projectid": {
+                        "type": "objectid"
+                    }
+                    }
+                
+            }
+
++ Response 200 (application/json)
+
+            [
+            {
+                "_id": {
+                "project": "test"
+                },
+                "tasks": [
+                {
+                "task": "test",
+                "user": "test",
+                "time": 2455
+                },
+                {
+                "task": "test",
+                "user": "test",
+                "time": 2455
+                }
+                ],
+            "total": 12275
+                },
+            {
+            "_id": {
+            "project": null
+            },
+            "tasks": [
+            {
+                "task": "test",
+                "user": "test",
+                "time": 0
+            },
+            {
+                "task": "test",
+                "user": "test",
+                "time": 2450
+            }
+            ],
+            "total": 2450
+        }
+        ]
+        }
+## Get project time [/user/projecttime/{projectid}]
+
+### get project time [GET]
+
++ Parameters
+    + projectid: `2jd443dj3323s` (objectid) - The id of the project.
++ Request 
+    + Headers
+        
+        ```
+        Content-type: (application/json)
+        
+        ```
++ Response 200 (application/json)
+
+            {
+            "project": "test project2",
+            "projectid": "5e417f1dad81af46e4a2e3fd",
+            "timeSpent": 12275
+            }
